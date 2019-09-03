@@ -32,6 +32,9 @@ function rm_spk(
     check(x)
 
     if method == :loess
+        rm_trd_loess(x, kwargs...)
+    elseif method == :linear
+        rm_trd_linear(x)
     else
         throw(ArgumentError("invalid method"))
     end
