@@ -24,7 +24,7 @@ function rm_glb_pca(x::Matrix{T} where T <: Real; remove_ratio = 0.9)
         sum(M.prinvars[pc_idx:end]),
         M.tvar)
 
-    reconstruct(new_mod, transform(new_mod, _x))
+    reconstruct(new_mod, transform(new_mod, _x))'
 end
 
 function rm_glb_mean(x::Matrix{T} where T <: Real)
