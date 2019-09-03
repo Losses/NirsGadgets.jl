@@ -1,3 +1,4 @@
 using JLD
 
-data = load("./test/resting_state.jld")
+data = JLD.load("./test/resting_state.jld")
+x = data["resting_state"]
