@@ -1,9 +1,11 @@
 module NirsGadgets
 
+using Loess
 using StatsBase
 using Statistics
 using MultivariateStats
 
+include("./check_data.jl")
 include("./outliers.jl")
 include("./decimate.jl")
 include("./rm_glb.jl")
