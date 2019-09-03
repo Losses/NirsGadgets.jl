@@ -4,7 +4,7 @@ function rm_spk_fill_mean(
     bar::Float64 = 3.0,
     method::Symbol = :sd)
 
-    x_ = convert(Matrix{Float64}, x)
+    x_ = convert(Matrix{Float64}, copy(x))
     r, c = size(x_)
 
     for i = 1:(r - window_width)
