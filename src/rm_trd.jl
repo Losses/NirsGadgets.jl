@@ -25,7 +25,7 @@ function rm_trd_linear(x::Matrix{T} where T <: Real)
     x - idx * βs'
 end
 
-function rm_spk(
+function rm_trd(
     x::Matrix{T} where T <: Real,
     method = :loess;
     kwargs...)

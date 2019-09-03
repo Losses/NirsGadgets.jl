@@ -2,7 +2,7 @@ function rm_spk_fill_mean(
     x::Matrix{T} where T <: Real;
     window_width::Int,
     bar::Float64 = 3.0,
-    methdod::Symbol = :sd)
+    method::Symbol = :sd)
 
     x_ = convert(Matrix{Float64}, x)
     r, c = size(x_)
