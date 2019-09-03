@@ -36,6 +36,8 @@ function rm_glb_mean(x::Matrix{T} where T <: Real)
 end
 
 function rm_glb(x, method = :glb_mean; kwargs...)
+    check(x)
+
     if method == :glb_mean
         rm_glb_mean(x)
     elseif method == :pca

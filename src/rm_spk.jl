@@ -25,6 +25,8 @@ function rm_spk(
     x::Matrix{T} where T <: Real,
     method = :fill_mean;
     kwargs...)
+    check(x)
+    
     if method == :fill_mean
         rm_glb_pca(x, kwargs...)
     else

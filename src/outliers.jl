@@ -20,6 +20,8 @@ function outliers(
     bar::Union{Float64, Nothing} = nothing,
     method::Symbol = :sd
 )
+    check(x)
+    
     if method == :sd
         outliers_sd(x, bar = isnothing(bar) ? 3.0 : bar)
     elseif method == :iqr
