@@ -21,7 +21,10 @@ function rm_spk_fill_mean(
     x_
 end
 
-function rm_spk(x, method = :fill_mean; kwargs...)
+function rm_spk(
+    x::Matrix{T} where T <: Real,
+    method = :fill_mean;
+    kwargs...)
     if method == :fill_mean
         rm_glb_pca(x, kwargs...)
     else
