@@ -16,14 +16,22 @@ function rm_trd_loess(
     x_
 end
 
+function rm_trd_linear(x::Matrix{T} where T <: Real)
+    r, c = size(x)
+    idx = convert(Vector{Float64}, [1:1:r; ])
+
+    βs = cov(x, idx) ./ var(idx)
+
+    x - idx * βs'
+end
+
 function rm_spk(
     x::Matrix{T} where T <: Real,
     method = :loess;
     kwargs...)
     check(x)
-    
+
     if method == :loess
-        rm_glb_pca(x, kwargs...)
     else
         throw(ArgumentError("invalid method"))
     end
