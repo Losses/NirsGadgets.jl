@@ -4,7 +4,7 @@ function rm_spk_fill_mean(
     bar::Float64 = 3.0,
     methdod::Symbol = :sd)
 
-    x_ = copy(x)
+    x_ = convert(Matrix{Float64}, x)
     r, c = size(x_)
 
     for i = 1:(r - window_width)
@@ -26,7 +26,7 @@ function rm_spk(
     method = :fill_mean;
     kwargs...)
     check(x)
-    
+
     if method == :fill_mean
         rm_glb_pca(x, kwargs...)
     else

@@ -1,14 +1,14 @@
 function rm_trd_loess(
     x::Matrix{T} where T <: Real;
-    span = 0.75)
+    span::Float64 = 0.75)
 
-    x_ = copy(x)
+    x_ = convert(Matrix{Float64}, x)
     r, c = size(x_)
     idx = convert(Vector{Float64}, [1:1:r; ])
 
     for i = 1:c
         c_loess = loess(idx, x_[:, i], span = span)
-        c_trend = predict(c_loess, idx)
+        c_trend = Loess.predict(c_loess, idx)
 
         x_[:, i] = x_[:, i] .- c_trend
     end
