@@ -35,13 +35,16 @@ function rm_glb_mean(x::Matrix{T} where T <: Real)
     x - glb_μ * βs'
 end
 
-function rm_glb(x, method = :glb_mean; kwargs...)
+function rm_glb(
+    x,
+    method = :glb_mean;
+    kwargs...)
     check(x)
 
     if method == :glb_mean
         rm_glb_mean(x)
     elseif method == :pca
-        rm_glb_pca(x, kwargs...)
+        rm_glb_pca(x; kwargs...)
     else
         throw(ArgumentError("invalid method"))
     end

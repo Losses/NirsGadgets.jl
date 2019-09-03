@@ -28,7 +28,7 @@ function rm_spk(
     check(x)
 
     if method == :fill_mean
-        rm_glb_pca(x, kwargs...)
+        rm_glb_pca(x; kwargs...)
     else
         throw(ArgumentError("invalid method"))
     end
