@@ -1,7 +1,7 @@
 function re_smp_deci(x; rate)
     r, c = size(x)
 
-    result = zeros(ceil(r/rate), c)
+    result = zeros(ceil(Int64, r/rate), c)
 
     for i = 1:c
         result[:, c] = decimate(x[:, i], rate)
