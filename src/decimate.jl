@@ -1,5 +1,3 @@
-using DSP
-
 # Code from https://gist.github.com/jcbsv/1f54819708d4fcebc788
 
 function cheby1(n, r, wp)
