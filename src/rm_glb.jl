@@ -1,5 +1,5 @@
-function rm_glb_pca(x::Matrix{T} where T <: Real; remove_ratio = 0.9)
-    local _x = x'
+function rm_glb_pca(x::Neuro1DRealSignal; remove_ratio = 0.9)::Neuro1DRealSignal
+    local _x = x.signal'
     local M = fit(PCA, _x, pratio=1.0)
     local p_ratio = M.prinvars ./ M.tprinvar
 
@@ -24,22 +24,30 @@ function rm_glb_pca(x::Matrix{T} where T <: Real; remove_ratio = 0.9)
         sum(M.prinvars[pc_idx:end]),
         M.tvar)
 
-    convert(Matrix{Float64}, reconstruct(new_mod, transform(new_mod, _x))')
+    Neuro1DRealSignal(
+        signal = convert(
+            Matrix{Float64},
+            MultivariateStats.reconstruct(new_mod, transform(new_mod, _x)
+        )'),
+        sample_rate = x.sample_rate
+    )
 end
 
-function rm_glb_mean(x::Matrix{T} where T <: Real)
-    glb_μ = mean(x, dims = 2)
+function rm_glb_mean(x::Neuro1DRealSignal)::Neuro1DRealSignal
+    glb_μ = mean(x.signal, dims = 2)
 
-    βs = cov(x, glb_μ) ./ var(glb_μ)
+    βs = cov(x.signal, glb_μ) ./ var(glb_μ)
 
-    x - glb_μ * βs'
+    Neuro1DRealSignal(
+        signal = x.signal - glb_μ * βs',
+        sample_rate = x.sample_rate
+    )
 end
 
 function rm_glb(
-    x,
+    x::Neuro1DRealSignal,
     method = :glb_mean;
-    kwargs...)
-    check(x)
+    kwargs...)::Neuro1DRealSignal
 
     if method == :glb_mean
         rm_glb_mean(x)

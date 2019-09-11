@@ -1,10 +1,10 @@
 function rm_spk_fill_mean(
-    x::Matrix{T} where T <: Real;
+    x::Neuro1DRealSignal;
     window_width::Int,
     bar::Float64 = 3.0,
-    method::Symbol = :sd)
+    method::Symbol = :sd)::Neuro1DRealSignal
 
-    x_ = convert(Matrix{Float64}, copy(x))
+    x_ = convert(Matrix{Float64}, copy(x.signal))
     r, c = size(x_)
 
     for i = 1:(r - window_width)
@@ -18,14 +18,17 @@ function rm_spk_fill_mean(
         x_[i:(i+window_width-1), :] = window_x
     end
 
-    x_
+
+    Neuro1DRealSignal(
+        signal = x_,
+        sample_rate = x.sample_rate
+    )
 end
 
 function rm_spk(
-    x::Matrix{T} where T <: Real,
+    x::Neuro1DRealSignal,
     method = :fill_mean;
-    kwargs...)
-    check(x)
+    kwargs...)::Neuro1DRealSignal
 
     if method == :fill_mean
         rm_spk_fill_mean(x; kwargs...)

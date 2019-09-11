@@ -1,20 +1,22 @@
-function re_smp_deci(x; rate)
-    r, c = size(x)
+function re_smp_deci(x::Neuro1DRealSignal; rate::Real)
+    r, c = size(x.signal)
 
-    result = zeros(ceil(Int64, r/rate), c)
+    result = zeros(ceil(Int64, r*rate), c)
 
     for i = 1:c
-        result[:, c] = decimate(x[:, i], rate)
+        result[:, i] = resample(x.signal[:, i], rate)
     end
 
-    result
+    Neuro1DRealSignal(
+        signal = result,
+        sample_rate = x.sample_rate / rate
+    )
 end
 
 function re_smp(
-    x::Matrix{T} where T <: Real,
+    x::Neuro1DRealSignal,
     method = :decimate;
     kwargs...)
-    check(x)
 
     if method == :decimate
         re_smp_deci(x; kwargs...)
