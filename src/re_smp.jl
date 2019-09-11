@@ -1,14 +1,18 @@
 function re_smp_deci(x::Neuro1DRealSignal; rate::Real)
     r, c = size(x.signal)
 
-    result = nothing
+    resampled_data::Vector{Vector{Float64}} = []
 
     for i = 1:c
-        res_c = resample(x.signal[:, i], rate)
+        println(typeof(resample(x.signal[:, i], rate)))
+        append!(resampled_data, [resample(x.signal[:, i], rate)])
+    end
 
-        isnothing(result) && (result = zeros(length(res_c), c))
+    new_r = minimum(length.(resampled_data))
+    result = zeros(new_r, c)
 
-        result[:, i] = res_c
+    for i = 1:c
+        result[:, c] = resampled_data[i][1:new_r]
     end
 
     Neuro1DRealSignal(
