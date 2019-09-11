@@ -20,7 +20,7 @@ function fl_lowpass(x::Neuro1DRealSignal; w::Real)
 end
 
 function fl_bandpass(x::Neuro1DRealSignal; w::Tuple{Real, Real})
-    response = Bandpass(w1, w2; fs = x.sample_rate)
+    response = Bandpass(w[1], w[2]; fs = x.sample_rate)
 
     __fl_pass(x, response)
 end
