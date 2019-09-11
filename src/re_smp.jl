@@ -1,15 +1,19 @@
 function re_smp_deci(x::Neuro1DRealSignal; rate::Real)
     r, c = size(x.signal)
 
-    result = zeros(ceil(Int64, r*rate), c)
+    result = nothing
 
     for i = 1:c
-        result[:, i] = resample(x.signal[:, i], rate)
+        res_c = resample(x.signal[:, i], rate)
+
+        isnothing(result) && result = zeros(length(res_c), c)
+        
+        result[:, i] = res_c
     end
 
     Neuro1DRealSignal(
         signal = result,
-        sample_rate = x.sample_rate / rate
+        sample_rate = x.sample_rate * rate
     )
 end
 
