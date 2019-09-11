@@ -23,5 +23,6 @@ export rm_spk
 export rm_trd
 export re_smp
 export fl_pas
+export Neuro1DRealSignal
 
 end # module
