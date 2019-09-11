@@ -4,7 +4,6 @@ function re_smp_deci(x::Neuro1DRealSignal; rate::Real)
     resampled_data::Vector{Vector{Float64}} = []
 
     for i = 1:c
-        println(typeof(resample(x.signal[:, i], rate)))
         append!(resampled_data, [resample(x.signal[:, i], rate)])
     end
 
