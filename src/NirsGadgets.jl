@@ -15,6 +15,9 @@ include("./rm_spk.jl")
 include("./rm_trd.jl")
 include("./re_smp.jl")
 include("./fl_pas.jl")
+include("./ts_hbt.jl")
+include("./cc_avg.jl")
+include("./cc_ana.jl")
 
 export outliers
 export to_1ds
@@ -23,6 +26,11 @@ export rm_spk
 export rm_trd
 export re_smp
 export fl_pas
+export an_hbt
+export cc_avg
+export cc_mod
+export cc_arg
+export cc_rea
 export Neuro1DRealSignal
 
 end # module
