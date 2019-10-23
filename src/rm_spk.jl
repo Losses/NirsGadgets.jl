@@ -6,16 +6,17 @@ function rm_spk_fill_mean(
 
     x_ = convert(Matrix{Float64}, copy(x.signal))
     r, c = size(x_)
+    w = ceil(Int64, window_width * x.sample_rate)
 
-    for i = 1:(r - window_width)
-        window_x = x_[i:(i+window_width-1), :]
+    for i = 1:(r - w)
+        window_x = x_[i:(i+w-1), :]
         window_μ = mean(window_x, dims = 1)
         for ch = 1:c
             ch_outlier = outliers(window_x[:, ch], method = method, bar = bar)
             window_x[ch_outlier, ch] .= window_μ[ch]
         end
 
-        x_[i:(i+window_width-1), :] = window_x
+        x_[i:(i+w-1), :] = window_x
     end
 
 
