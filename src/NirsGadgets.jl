@@ -19,6 +19,7 @@ include("./ts_hbt.jl")
 include("./cc_avg.jl")
 include("./cc_ana.jl")
 include("./cc_add.jl")
+include("./rs_bnd.jl")
 
 export outliers
 export to_1ds
@@ -33,7 +34,9 @@ export cc_mod
 export cc_arg
 export cc_rea
 export cc_add
+export rs_bnd
 
 export Neuro1DRealSignal
+export Neuro1DAnalyticSignal
 
 end # module
